@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx_imc/contador/contador_controller.dart';
 
-class ContadorPage extends StatelessWidget {
-  ContadorPage({Key? key}) : super(key: key);
+class ContadorCodeGenPage extends StatelessWidget {
+  ContadorCodeGenPage({Key? key}) : super(key: key);
 
   final controller = ContadorController();
 

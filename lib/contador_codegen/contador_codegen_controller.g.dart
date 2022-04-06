@@ -24,6 +24,20 @@ mixin _$ContadorCodeGenController on _ContadorCodeGenControllerBase, Store {
     });
   }
 
+  final _$_ContadorCodeGenControllerBaseActionController =
+      ActionController(name: '_ContadorCodeGenControllerBase');
+
+  @override
+  void increment() {
+    final _$actionInfo = _$_ContadorCodeGenControllerBaseActionController
+        .startAction(name: '_ContadorCodeGenControllerBase.increment');
+    try {
+      return super.increment();
+    } finally {
+      _$_ContadorCodeGenControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

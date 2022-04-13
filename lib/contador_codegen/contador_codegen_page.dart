@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx_imc/contador/contador_controller.dart';
+import 'package:mobx_imc/contador_codegen/contador_codegen_controller.dart';
 
 class ContadorCodeGenPage extends StatelessWidget {
   ContadorCodeGenPage({Key? key}) : super(key: key);
 
-  final controller = ContadorController();
+  final controller = ContadorCodeGenController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Contador MobX'),
+        title: const Text('Contador MobX codeGen'),
       ),
       body: Center(
         child: Column(

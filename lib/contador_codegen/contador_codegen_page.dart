@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:mobx_imc/contador_codegen/contador_codegen_controller.dart';
 
-class ContadorCodeGenPage extends StatelessWidget {
+class ContadorCodeGenPage extends StatefulWidget {
   ContadorCodeGenPage({Key? key}) : super(key: key);
 
+  @override
+  State<ContadorCodeGenPage> createState() => _ContadorCodeGenPageState();
+}
+
+class _ContadorCodeGenPageState extends State<ContadorCodeGenPage> {
   final controller = ContadorCodeGenController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    autorun((_){
+      print('--------------- auto --------------');
+      print(controller.counter);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

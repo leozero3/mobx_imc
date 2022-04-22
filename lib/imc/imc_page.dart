@@ -97,7 +97,7 @@ class _ImcPageState extends State<ImcPage> {
                       double peso = formatter.parse(pesoEC.text) as double;
                       double altura = formatter.parse(alturaEC.text) as double;
 
-                      controller.CalcularImc(peso: peso, altura: altura);
+                      //controller.CalcularImc(peso: peso, altura: altura);
                     }
                   },
                   child: const Text('Calcular IMC'),

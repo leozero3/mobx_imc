@@ -1,16 +1,39 @@
+import 'dart:math';
+
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx_imc/widgets/imc_gauge.dart';
 
 class ImcPage extends StatefulWidget {
-  const ImcPage({Key key}) : super(key: key);
+  const ImcPage({Key? key}) : super(key: key);
 
   @override
   _ImcPageState createState() => _ImcPageState();
 }
 
 class _ImcPageState extends State<ImcPage> {
+
+  final pesoEC = TextEditingController();
+  final alturaEC = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  var imc = ValueNotifier(0.0);
+
+  Future<void> _calcularImc(
+      {required double peso, required double altura}) async {
+
+    imc.value = 0;
+    await Future.delayed(Duration(seconds: 1));
+    imc.value = peso / pow(altura, 2);
+
+  }
+
+  @override
+  void dispose() {
+    pesoEC.dispose();
+    alturaEC.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

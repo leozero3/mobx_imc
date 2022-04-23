@@ -1,8 +1,9 @@
-import 'dart:math';
-
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
+import 'package:mobx/mobx.dart';
+import 'package:mobx_imc/imc/imc_controller.dart';
 import 'package:mobx_imc/widgets/imc_gauge.dart';
 
 class ImcPage extends StatefulWidget {
@@ -13,27 +14,34 @@ class ImcPage extends StatefulWidget {
 }
 
 class _ImcPageState extends State<ImcPage> {
-
+  final controller = ImcController();
   final pesoEC = TextEditingController();
   final alturaEC = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  var imc = ValueNotifier(0.0);
+  final reactionDisposer = <ReactionDisposer>[];
 
-  Future<void> _calcularImc(
-      {required double peso, required double altura}) async {
-
-    imc.value = 0;
-    await Future.delayed(Duration(seconds: 1));
-    imc.value = peso / pow(altura, 2);
-
+  @override
+  void initState() {
+    super.initState();
+    final reactionErrorDisposer = reaction<bool>(
+      (_) => controller.hasError,
+      (hasError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(controller.error ?? 'ERRO!!!!'),
+          ),
+        );
+      },
+    );
+    reactionDisposer.add(reactionErrorDisposer);
   }
 
   @override
   void dispose() {
-    pesoEC.dispose();
-    alturaEC.dispose();
     super.dispose();
+    reactionDisposer.forEach((reactionDisposer) => reactionDisposer());
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,8 +55,13 @@ class _ImcPageState extends State<ImcPage> {
             padding: const EdgeInsets.all(8),
             child: Column(
               children: [
-                    ImcGauge(imc: 0),
-
+                Observer(
+                  builder: (_) {
+                    return ImcGauge(
+                      imc: controller.imc,
+                    );
+                  },
+                ),
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: pesoEC,
@@ -97,7 +110,7 @@ class _ImcPageState extends State<ImcPage> {
                       double peso = formatter.parse(pesoEC.text) as double;
                       double altura = formatter.parse(alturaEC.text) as double;
 
-                      //controller.CalcularImc(peso: peso, altura: altura);
+                      controller.calcularImc(peso: peso, altura: altura);
                     }
                   },
                   child: const Text('Calcular IMC'),

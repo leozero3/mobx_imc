@@ -9,6 +9,13 @@ part of 'imc_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ImcController on _ImcController, Store {
+  Computed<bool>? _$hasErrorComputed;
+
+  @override
+  bool get hasError => (_$hasErrorComputed ??=
+          Computed<bool>(() => super.hasError, name: '_ImcController.hasError'))
+      .value;
+
   final _$imcAtom = Atom(name: '_ImcController.imc');
 
   @override
@@ -24,6 +31,21 @@ mixin _$ImcController on _ImcController, Store {
     });
   }
 
+  final _$errorAtom = Atom(name: '_ImcController.error');
+
+  @override
+  String? get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(String? value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
   final _$calcularImcAsyncAction = AsyncAction('_ImcController.calcularImc');
 
   @override
@@ -35,7 +57,9 @@ mixin _$ImcController on _ImcController, Store {
   @override
   String toString() {
     return '''
-imc: ${imc}
+imc: ${imc},
+error: ${error},
+hasError: ${hasError}
     ''';
   }
 }

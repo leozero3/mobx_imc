@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-//modelo_observado_page
 class ModeloObservadoPage extends StatefulWidget {
   const ModeloObservadoPage({Key? key}) : super(key: key);
 
@@ -52,6 +52,6 @@ class _ModeloObservadoPageState extends State<ModeloObservadoPage> {
         ],
       ),
     );
-    ;
   }
 }
+

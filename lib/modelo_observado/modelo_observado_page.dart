@@ -46,17 +46,17 @@ class _ModeloObservadoPageState extends State<ModeloObservadoPage> {
                 onPressed: () {
                   controller.addProduct();
                 },
-                child: Text('Adicionar')),
+                child: const Text('Adicionar')),
             TextButton(
                 onPressed: () {
                   controller.removeProduct();
                 },
-                child: Text('Remover')),
+                child: const Text('Remover')),
             TextButton(
                 onPressed: () {
                   controller.loadProducts();
                 },
-                child: Text('Carregar')),
+                child: const Text('Carregar')),
           ]),
         ],
       ),

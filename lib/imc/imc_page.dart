@@ -65,7 +65,7 @@ class _ImcPageState extends State<ImcPage> {
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: pesoEC,
-                  decoration: InputDecoration(labelText: 'Peso'),
+                  decoration: const InputDecoration(labelText: 'Peso'),
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     CurrencyTextInputFormatter(
@@ -79,11 +79,12 @@ class _ImcPageState extends State<ImcPage> {
                     if (value == null || value.isEmpty) {
                       return 'Campo Obrigatorio';
                     }
+                    return null;
                   },
                 ),
                 TextFormField(
                   controller: alturaEC,
-                  decoration: InputDecoration(labelText: 'Altura'),
+                  decoration: const InputDecoration(labelText: 'Altura'),
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     CurrencyTextInputFormatter(
@@ -97,6 +98,7 @@ class _ImcPageState extends State<ImcPage> {
                     if (value == null || value.isEmpty) {
                       return 'Campo Obrigatorio';
                     }
+                    return null;
                   },
                 ),
                 const SizedBox(height: 20),

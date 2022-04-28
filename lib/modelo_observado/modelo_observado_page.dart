@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx_imc/modelo_observado/modelo_observado_controller.dart';
 
 class ModeloObservadoPage extends StatefulWidget {
   const ModeloObservadoPage({Key? key}) : super(key: key);
@@ -9,6 +10,8 @@ class ModeloObservadoPage extends StatefulWidget {
 }
 
 class _ModeloObservadoPageState extends State<ModeloObservadoPage> {
+  final controller = ModeloObservadoController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,11 +24,17 @@ class _ModeloObservadoPageState extends State<ModeloObservadoPage> {
                 return ListView.builder(
                   itemCount: controller.products.length,
                   itemBuilder: (context, index) {
-                    final productName = controller.products[index].name;
-                    return CheckboxListTile(
-                      value: false,
-                      onChanged: (_) {},
-                      title: Text(productName),
+                    final productStore = controller.products[index];
+                    return Observer(
+                      builder: (_) {
+                        return CheckboxListTile(
+                          value: productStore.selected,
+                          onChanged: (_) {
+                            controller.selectedProduct(index);
+                          },
+                          title: Text(productStore.product.name),
+                        );
+                      },
                     );
                   },
                 );
@@ -54,4 +63,3 @@ class _ModeloObservadoPageState extends State<ModeloObservadoPage> {
     );
   }
 }
-

@@ -1,33 +1,41 @@
 import 'package:mobx/mobx.dart';
 import 'package:mobx_imc/model/product_model.dart';
+import 'package:mobx_imc/modelo_observado/model/product_store.dart';
 
-part 'observable_list_controller.g.dart';
+part 'modelo_observado_controller.g.dart';
 
-class ObservableListController = _ObservableListController
-    with _$ObservableListController;
+class ModeloObservadoController = _ModeloObservadoController
+    with _$ModeloObservadoController;
 
-abstract class _ObservableListController with Store {
+abstract class _ModeloObservadoController with Store {
   @observable
-  var products = <ProductModel>[].asObservable();
+  var products = <ProductStore>[].asObservable();
 
   @action
   void loadProducts() {
     var productsData = [
-      ProductModel(name: 'computador'),
-      ProductModel(name: 'celular'),
-      ProductModel(name: 'teclado'),
-      ProductModel(name: 'mouse'),
+      ProductStore(product: ProductModel(name: 'computador'), selected: false),
+      ProductStore(product: ProductModel(name: 'celular'), selected: false),
+      ProductStore(product: ProductModel(name: 'teclado'), selected: false),
+      ProductStore(product: ProductModel(name: 'mouse'), selected: false),
     ];
     products.addAll(productsData);
   }
 
   @action
   void addProduct() {
-    products.add(ProductModel(name: 'computador'));
+    products.add(ProductStore(
+        product: ProductModel(name: 'computador'), selected: false));
   }
 
   @action
   void removeProduct() {
     products.removeAt(0);
+  }
+
+  @action
+  void selectedProduct(int index) {
+    var productSelected = products[index].selected;
+    products[index].selected = !productSelected;
   }
 }
